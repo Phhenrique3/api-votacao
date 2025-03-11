@@ -6,6 +6,8 @@ router(app);
 
 app.get("/teste", (req, res) => {
   res.send("Hello World");
+
+    InputEvent("Hello World");
 });
 
 module.exports = app;
