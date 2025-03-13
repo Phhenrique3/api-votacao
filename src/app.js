@@ -1,13 +1,9 @@
-const exepress = require("express");
-const router = require("./routes");
+const express = require('express');
+const router = require('./routes');
 
-const app = exepress();
+
+
+const app = express();
 router(app);
-
-app.get("/teste", (req, res) => {
-  res.send("Hello World");
-
-    InputEvent("Hello World");
-});
 
 module.exports = app;
