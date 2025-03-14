@@ -1,3 +1,3 @@
-const polls = []
+const polls = [];
 
-module.exports = {polls}
+export default { polls };
