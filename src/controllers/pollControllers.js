@@ -1,3 +1,5 @@
+const { text } = require("express");
+
 const { polls } = require("../models/pollmodels").default;
 console.log("Estado inicial de polls:", polls);
 
@@ -26,17 +28,16 @@ exports.createPoll = (req, res) => {
 // Obter uma enquete
 exports.getPoll = (req, res) => {
   const pollId = parseInt(req.params.id);
-  console.log("polls:", polls);  // Verifique o que está armazenado em polls
+  console.log("polls:", polls); // Verifique o que está armazenado em polls
   const poll = polls.find((p) => p.id === pollId);
   if (!poll) return res.status(404).json({ error: "Enquete não localizada" });
   res.json(poll);
 };
 
-
 // Votação de uma enquete
 exports.votePoll = (req, res) => {
   const pollId = parseInt(req.params.id);
-   // Obtém o ID da enquete da URL
+  // Obtém o ID da enquete da URL
   console.log("Poll ID recebido:", pollId); // Adicionando log para ver o ID recebido
 
   const poll = polls.find((p) => p.id === pollId); // Busca a enquete com o ID
@@ -65,3 +66,19 @@ exports.votePoll = (req, res) => {
 
   res.json({ message: "Voto registrado com sucesso!", poll });
 };
+
+exports.getPollResults = (req, res) => {
+  const poll = polls.find((P) => P.id === parseInt(req.params.id));
+  if (!poll)
+    return res.status(404).json({ error: "enquete não localizada ):" });
+
+  res.json({
+    pergunta: poll.pergunta,
+    resultados: poll.opcoes.map((opcao) => ({
+      opcao: opcao.opcao,
+      votos: opcao.votos,
+    })),
+  });
+};
+ 
+// Removed duplicate and incorrect getPollResults function
